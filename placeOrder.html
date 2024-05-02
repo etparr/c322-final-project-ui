@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="placeOrder.css">
+
+
+</head>
+
+<body>
+    <script src="configuration.js"></script>
+    <script src="navbar.js"></script>
+    <nav>
+        <div class="logo">
+            <a href="index.html"><img src="logo.png" alt="Logo"></a>
+        </div>
+        <div class="nav-links">
+            <a href="trackOrder.html">Track Order</a>
+            <a href="login.html"><img src="profile-icon.png" alt="Profile"></a>
+            <a href="#" id="cartIconContainer">
+                <img src="cart-icon.png" alt="Cart">
+                <span id="cartCountBadge"></span>
+            </a>            
+        </div>
+    </nav>
+
+    <div class="order-summary">
+        <div class="product-info">
+            <img id="product-image" alt="Product" class="product-image">
+            <div>
+                <p id="product-name" class="product-name"></p>
+                <p id="delivery-date" class="delivery-date"></p>
+                <p id="item-price" class="item-price"></p>
+            </div>
+        </div>
+        <div class="address">
+            <p>Delivery Address</p>
+            <p id="customer-name"></p>
+            <p id="address-line"></p>
+            <p id="address-city-state-zip"></p>
+        </div>
+        <div class="pricing">
+            <p id="subtotal"></p>
+            <p id="delivery"></p>
+            <p id="discount"></p>
+            <p id="tax"></p>
+            <p id="order-total"><strong></strong></p>
+        </div>
+        <button class="place-order">Place Order</button>
+    </div>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const recipientData = JSON.parse(localStorage.getItem('recipientData')) || {};
+            const flowerName = localStorage.getItem('flowerName') || 'Default Flower';
+            const flowerPrice = localStorage.getItem('flowerPrice') || '0';
+            const flowerImage = localStorage.getItem('flowerImage') || 'default-image.png';
+            const deliveryDate = localStorage.getItem('deliveryDate') || 'No delivery date set';
+
+            const isUserLoggedIn = isLoggedIn();
+            const deliveryDiscount = isUserLoggedIn ? 10 : 0;
+
+            document.getElementById('product-name').textContent = flowerName;
+            document.getElementById('item-price').textContent = `$${Number(flowerPrice).toFixed(2)}`;
+            document.getElementById('product-image').src = flowerImage;
+            document.getElementById('product-image').alt = flowerName;
+            document.getElementById('delivery-date').textContent = `Delivery Date: ${deliveryDate}`;
+
+            if (Object.keys(recipientData).length > 0) {
+                document.getElementById('customer-name').textContent = `${recipientData.firstName || ''} ${recipientData.lastName || ''}`;
+                document.getElementById('address-line').textContent = `${recipientData.address || ''}, ${recipientData.apt || ''}`;
+                document.getElementById('address-city-state-zip').textContent = `${recipientData.city || ''}, ${recipientData.state || ''} ${recipientData.zip || ''}`;
+            }
+
+            const subtotal = Number(flowerPrice);
+            const deliveryCharge = 25;
+            const discount = deliveryDiscount;
+            const tax = 0;
+
+            document.getElementById('subtotal').textContent = `Subtotal: $${subtotal.toFixed(2)}`;
+            document.getElementById('delivery').textContent = `Delivery: $${deliveryCharge.toFixed(2)}`;
+            document.getElementById('discount').textContent = `Discount: -$${discount.toFixed(2)}`;
+            document.getElementById('tax').textContent = `Tax: $${tax.toFixed(2)}`;
+            document.getElementById('order-total').firstChild.textContent = `Order Total: $${(subtotal + deliveryCharge - discount + tax).toFixed(2)}`;
+
+
+            document.querySelector('.place-order').addEventListener('click', function () {
+                const recipientData = JSON.parse(localStorage.getItem('recipientData')) || {};
+                const isUserLoggedIn = isLoggedIn();
+
+                const flower = JSON.parse(localStorage.getItem('flowerData')) || {};
+                let orderData = {
+                    name: isUserLoggedIn ? `${recipientData.firstName || 'Unknown'} ${recipientData.lastName || 'User'}` : null,
+                    username: isUserLoggedIn ? localStorage.getItem('username') || 'Guest' : null,
+                    email: recipientData.email || 'No email provided',
+                    status: "submitted",
+                    street: recipientData.address || 'No street provided',
+                    city: recipientData.city || 'No city',
+                    state: recipientData.state || 'No state',
+                    postalCode: recipientData.zip || 'No postal code',
+                    country: recipientData.country || 'No country',
+                    deliveryDate: localStorage.getItem('deliveryDate') || 'No delivery date set',
+                    flower: {
+                        name: localStorage.getItem('flowerName') || 'Default Flower',
+                        type: localStorage.getItem('flowerType') || 'No type specified',
+                        price: parseFloat(localStorage.getItem('flowerPrice')) || 0,
+                        color: localStorage.getItem('flowerColor') || 'No color specified',
+                        occasion: localStorage.getItem('flowerOccasion') || 'No occasion specified'
+                    }
+                };
+
+                fetch(getHost() + '/orders', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + configuration.token(),
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(orderData)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Order placed successfully:', data);
+                        window.location.href = 'trackOrder.html';
+                    })
+                    .catch(error => {
+                        console.error('Error placing order:', error);
+                    });
+            });
+        });
+
+    </script>
+</body>
+
+</html>

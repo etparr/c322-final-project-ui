@@ -1,0 +1,59 @@
+.container {
+    display: flex;
+    margin: 20px;
+}
+
+.left, .right {
+    flex: 1;
+    border-left: 10px;
+    width: 300px;
+    height: 300px;
+}
+
+.right {
+    align-items: center;
+}
+
+.flower-image {
+    width: 100%;
+    height: auto;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+}
+
+.subscription, .one-time {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #144B3C;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+input[type="radio"]:checked + label {
+    font-weight: bold;
+}
+
+button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 10px;
+    background-color: #144B3C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.input-field {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}

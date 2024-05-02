@@ -1,0 +1,101 @@
+/* styles.css */
+body, html {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    background: white;
+    padding: 20px;
+}
+
+.login, .signup {
+    width: 150px;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    color: #134C3D;
+    border: 2px solid #134C3D;
+    background-color: white;
+}
+
+.login:hover, .signup:hover {
+    background-color: #134C3D;
+    color: white;
+}
+
+.login-bar {
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.product-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.delivery-info h3 {
+    font-weight: bold;
+    align-items: center;
+}
+
+.input-group {
+    margin-bottom: 10px;
+}
+
+.input-group label {
+    display: block;
+}
+
+.input-group input, .input-group select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 2px;
+}
+
+.address-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+.continue {
+    width: 100%;
+    padding: 15px;
+    background-color: #134C3D;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.green-banner {
+    background-color: #134C3D;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.login-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.login-buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}

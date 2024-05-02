@@ -1,0 +1,112 @@
+.upperBoard {
+    height: 30vh;
+    display: flex;
+    position: relative;
+    top: 20vh;
+    border-left: 10px solid #FFFF;
+    border-right: 10px solid #FFFF;
+}
+
+.two-thirds {
+    width: 65%;
+    background-color: #F5E3DE;
+    border-right: 4px solid #FFFF;
+}
+
+.one-third {
+    width: 35%;
+    background-color: #F1AD94;
+}
+
+.label-text {
+    margin-right: 10px;
+}
+
+
+
+
+
+.filterBar {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    padding: 10px;
+    margin-top: 145px;
+    background-color: #f2f2f2;
+}
+
+.filterSection {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.dropdown {
+    margin: 5px;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: white;
+}
+
+.dropdown select {
+    min-height: 36px;
+    width: 160px;
+}
+
+
+
+
+
+.flower-container {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+}
+
+.flower-card {
+    display: relative;
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+
+.flower-image {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flower-name, .flower-price {
+    text-align: left;
+}
+
+.flower-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+} 
+
+.flower-price {
+    font-weight: bold;
+    color: black;
+    text-align: left;
+
+}
+
+.price-prefix {
+    font-weight: normal;
+}

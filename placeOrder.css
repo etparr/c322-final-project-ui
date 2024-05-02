@@ -1,0 +1,44 @@
+.order-summary {
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.product-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.product-image {
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.product-name, .delivery-date, .item-price {
+    margin: 0;
+}
+
+.address p, .pricing p {
+    margin: 5px 0;
+}
+
+.place-order {
+    background-color: #134C3D;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.place-order:hover {
+    background-color: #134C3D;
+}

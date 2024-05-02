@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower Detail Page</title>
+    <link rel="stylesheet" href="addToBasket.css">
+    <link rel="stylesheet" href="navbar.css">
+</head>
+
+<body>
+    <script src="navbar.js"></script>
+
+    <nav>
+        <div class="logo">
+            <a href="index.html"><img src="logo.png" alt="Logo"></a>
+        </div>
+        <div class="nav-links">
+            <a href="trackOrder.html">Track Order</a>
+            <a href="login.html"><img src="profile-icon.png" alt="Profile"></a>
+            <a href="#"><img src="cart-icon.png" alt="Cart"></a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="left">
+            <img id="flowerImage" src="" alt="Flower Image" class="flower-image">
+        </div>
+        <div class="right">
+            <h1 id="flowerName">Flower Name</h1>
+            <p id="flowerPrice">Price</p>
+
+            <label for="deliveryDate">Delivery Date:</label>
+            <input type="date" id="deliveryDate" required placeholder="Select a date" class="input-field">
+
+            <p><b>Purchasing Options</b></p>
+            <div class="options">
+                <div class="subscription">
+                    <input type="radio" id="subscribe" name="purchaseType" value="subscription" required checked>
+                    <label for="subscribe">Start a subscription</label>
+                    <p>Info about subscription. Its cheap! I Swear!</p>
+                </div>
+                <div class="one-time">
+                    <input type="radio" id="one-time" name="purchaseType" value="one-time" required>
+                    <label for="one-time">One-time purchase - Price</label>
+                </div>
+            </div>
+            <button id="addToBasket">ADD TO BASKET</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const params = new URLSearchParams(window.location.search);
+            const flowerName = params.get('name');
+            const flowerPrice = params.get('price');
+            const flowerImage = `https://c322-final-project-latest.onrender.com/flowers/${flowerName}/image`;
+            const flowerType = params.get('type');
+            const flowerColor = params.get('color');
+            const flowerOccasion = params.get('occasion');
+
+            document.getElementById('flowerName').textContent = flowerName;
+            document.getElementById('flowerPrice').textContent = `$${Number(flowerPrice).toFixed(2)}`;
+            document.getElementById('flowerImage').src = flowerImage;
+            document.getElementById('flowerImage').alt = flowerName;
+            document.getElementById('one-time').nextElementSibling.textContent = `One-time purchase - $${Number(flowerPrice).toFixed(2)}`;
+
+            document.getElementById('addToBasket').addEventListener('click', function (event) {
+                event.preventDefault();
+                if (document.getElementById('deliveryDate').value && document.querySelector('input[name="purchaseType"]:checked')) {
+                    localStorage.setItem('flowerName', flowerName);
+                    localStorage.setItem('flowerPrice', flowerPrice);
+                    localStorage.setItem('flowerImage', flowerImage);
+                    localStorage.setItem('flowerColor', flowerColor || 'No color specified');
+                    localStorage.setItem('flowerOccasion', flowerOccasion || 'No occasion specified');
+                    localStorage.setItem('deliveryDate', document.getElementById('deliveryDate').value);
+                    localStorage.setItem('purchaseType', document.querySelector('input[name="purchaseType"]:checked').value);
+
+                    const currentCartCount = parseInt(localStorage.getItem('cartCount') || '0');
+                    localStorage.setItem('cartCount', currentCartCount + 1);
+
+
+                    window.location.href = 'delivery.html';
+
+                } else {
+                    alert('Please select all required options.');
+                }
+            });
+
+            const cartIconContainer = document.querySelector('#cartIconContainer');
+            const cartCountBadge = document.querySelector('#cartCountBadge');
+            const cartCount = localStorage.getItem('cartCount') || '0';
+
+            if (cartCountBadge && parseInt(cartCount) > 0) {
+                cartCountBadge.textContent = cartCount;
+                cartCountBadge.style.display = 'inline-block';
+            }
+        });
+
+    </script>
+</body>
+
+</html>

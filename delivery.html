@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flower Delivery</title>
+<link rel="stylesheet" href="delivery.css">
+<link rel="stylesheet" href="navbar.css">
+
+</head>
+<body>
+    <script src="navbar.js"></script>
+    <script src="configuration.js"></script>
+    
+    <nav>
+        <div class="logo">
+            <a href="index.html"><img src="logo.png" alt="Logo"></a>
+        </div>
+        <div class="nav-links">
+            <a href="trackOrder.html">Track Order</a>
+            <a href="login.html"><img src="profile-icon.png" alt="Profile"></a>
+            <a href="#" id="cartIconContainer">
+                <img src="cart-icon.png" alt="Cart">
+                <span id="cartCountBadge"></span>
+            </a>            
+        </div>
+    </nav>
+
+    <div id="login-promo" style="display: block;">
+        <div class="green-banner">
+            Save $10 on every delivery by making an account
+        </div>
+        <div class="login-buttons">
+            <button onclick="window.location.href='login.html'">Log In</button>
+            <button onclick="window.location.href='register.html'">Sign Up</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="product-info">
+            <h2 id="flowerName">THE ANGELS</h2>
+            <span id="flowerPrice">$74</span>
+        </div>
+        <div class="delivery-info">
+            <div class="recipient-info">
+                <h3>RECIPIENT</h3>
+                <div class="input-group">
+                    <label for="first-name">First Name*</label>
+                    <input id="first-name" type="text" placeholder="First Name">
+                </div>
+                <div class="input-group">
+                    <label for="last-name">Last Name*</label>
+                    <input id="last-name" type="text" placeholder="Last Name">
+                </div>
+                <div class="input-group">
+                    <label for="relationship">Relationship*</label>
+                    <select id="relationship">
+                        <option value="">Select</option>
+                        <option value="romantic_partner">Romantic Partner</option>
+                        <option value="parent">Parent</option>
+                        <option value="friend">Friend</option>
+                        <option value="sibling">Sibling</option>
+                    </select>                    
+                </div>
+            </div>
+            <div class="delivery-to">
+                <h3>DELIVER TO</h3>
+                <div class="input-group full-width">
+                    <label for="address">Address*</label>
+                    <input id="address" type="text" placeholder="Address">
+                </div>
+                <div class="address-details">
+                    <div class="input-group">
+                        <label for="apt">Apt/Suite</label>
+                        <input id="apt" type="text" placeholder="Apt/Suite">
+                    </div>
+                    <div class="input-group">
+                        <label for="city">City*</label>
+                        <input id="city" type="text" placeholder="City">
+                    </div>
+                    <div class="input-group">
+                        <label for="state">State*</label>
+                        <select id="state">
+                            <option value="">Select</option>
+                            <option value="Alabama">Alabama</option>
+                            <option value="Alaska">Alaska</option>
+                            <option value="Arizona">Arizona</option>
+                            <option value="Arkansas">Arkansas</option>
+                            <option value="California">California</option>
+                            <option value="Colorado">Colorado</option>
+                            <option value="Connecticut">Connecticut</option>
+                            <option value="Delaware">Delaware</option>
+                            <option value="Florida">Florida</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="Hawaii">Hawaii</option>
+                            <option value="Idaho">Idaho</option>
+                            <option value="Illinois">Illinois</option>
+                            <option value="Indiana">Indiana</option>
+                            <option value="Iowa">Iowa</option>
+                            <option value="Kansas">Kansas</option>
+                            <option value="Kentucky">Kentucky</option>
+                            <option value="Louisiana">Louisiana</option>
+                            <option value="Maine">Maine</option>
+                            <option value="Maryland">Maryland</option>
+                            <option value="Massachusetts">Massachusetts</option>
+                            <option value="Michigan">Michigan</option>
+                            <option value="Minnesota">Minnesota</option>
+                            <option value="Mississippi">Mississippi</option>
+                            <option value="Missouri">Missouri</option>
+                            <option value="Montana">Montana</option>
+                            <option value="Nebraska">Nebraska</option>
+                            <option value="Nevada">Nevada</option>
+                            <option value="New Hampshire">New Hampshire</option>
+                            <option value="New Jersey">New Jersey</option>
+                            <option value="New Mexico">New Mexico</option>
+                            <option value="New York">New York</option>
+                            <option value="North Carolina">North Carolina</option>
+                            <option value="North Dakota">North Dakota</option>
+                            <option value="Ohio">Ohio</option>
+                            <option value="Oklahoma">Oklahoma</option>
+                            <option value="Oregon">Oregon</option>
+                            <option value="Pennsylvania">Pennsylvania</option>
+                            <option value="Rhode Island">Rhode Island</option>
+                            <option value="South Carolina">South Carolina</option>
+                            <option value="South Dakota">South Dakota</option>
+                            <option value="Tennessee">Tennessee</option>
+                            <option value="Texas">Texas</option>
+                            <option value="Utah">Utah</option>
+                            <option value="Vermont">Vermont</option>
+                            <option value="Virginia">Virginia</option>
+                            <option value="Washington">Washington</option>
+                            <option value="West Virginia">West Virginia</option>
+                            <option value="Wisconsin">Wisconsin</option>
+                            <option value="Wyoming">Wyoming</option>
+                        </select>                        
+                    </div>
+                    <div class="input-group">
+                        <label for="zip">Zip Code*</label>
+                        <input id="zip" type="text" placeholder="Zip Code">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="continue">CONTINUE</button>
+    </div>    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const flowerName = localStorage.getItem('flowerName');
+    const flowerPrice = localStorage.getItem('flowerPrice');
+
+    document.getElementById('flowerName').textContent = flowerName;
+
+    document.getElementById('flowerPrice').textContent = `$${Number(flowerPrice).toFixed(2)}`;
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const recipientData = JSON.parse(localStorage.getItem('recipientData')) || {};
+
+    document.getElementById('first-name').value = recipientData.firstName || '';
+    document.getElementById('last-name').value = recipientData.lastName || '';
+    document.getElementById('relationship').value = recipientData.relationship || '';
+    document.getElementById('address').value = recipientData.address || '';
+    document.getElementById('apt').value = recipientData.apt || '';
+    document.getElementById('city').value = recipientData.city || '';
+    document.getElementById('state').value = recipientData.state || '';
+    document.getElementById('zip').value = recipientData.zip || '';
+    
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    if(isLoggedIn()) {
+        const loginBar = document.querySelector('.login-bar');
+        if(loginBar) loginBar.style.display = 'none';
+
+        const dealBar = document.querySelector('.deal-bar');
+        if(dealBar) dealBar.style.display = 'none';
+    }
+});
+
+document.querySelector('.continue').addEventListener('click', function() {
+    const firstName = document.getElementById('first-name').value.trim();
+    const lastName = document.getElementById('last-name').value.trim();
+    const relationship = document.getElementById('relationship').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const city = document.getElementById('city').value.trim();
+    const state = document.getElementById('state').value.trim();
+    const zip = document.getElementById('zip').value.trim();
+
+    if (firstName === '' || lastName === '' || relationship === '' || address === '' || city === '' || state === '' || zip === '') {
+        alert('Please fill in all required fields.');
+        return;
+    }
+
+    localStorage.setItem('recipientData', JSON.stringify({
+        firstName: firstName,
+        lastName: lastName,
+        relationship: relationship,
+        address: address,
+        apt: document.getElementById('apt').value.trim(),
+        city: city,
+        state: state,
+        zip: zip
+    }));
+
+    window.location.href = 'placeOrder.html';
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (isLoggedIn()) {
+        document.getElementById('login-promo').style.display = 'none';
+        console.log("I am logged in");
+    }
+});
+
+    </script>
+</body>
+</html>
